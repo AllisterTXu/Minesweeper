@@ -4,6 +4,8 @@ public final static int NUM_COLS = 20;
 public final static int NUM_ROWS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines; //ArrayList of just the minesweeper buttons that are mined
+private ArrayList<MSButton> MSButtonList = new ArrayList<MSButton>();
+private ArrayList<MSButton> bombs = new ArrayList<MSButton>();
 
 void setup ()
 {
@@ -13,10 +15,10 @@ void setup ()
     // make the manager
     Interactive.make( this );
     
-    int[][] buttons = new int[NUM_ROWS][NUM_COLS];
+    buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for(int r = 0; r < NUM_ROWS; r++){
       for(int c = 0; c < NUM_COLS; c++){
-        ArrayList<MSButton>[r][c] MSButtonList = new MSButton[r][c];
+        buttons[r][c] = new MSButton(r,c);
       }
     }
     
@@ -26,7 +28,14 @@ void setup ()
 }
 public void setMines()
 {
-    //your code
+  int row, col;
+    for(int i = 0; i < 40; i++){
+      row = (int)(Math.random()*20);
+      col = (int)(Math.random()*20);
+      if(!bombs.contains(buttons[row][col])){
+        bombs.add(buttons[row][col]);
+      }
+    }
 }
 
 public void draw ()
